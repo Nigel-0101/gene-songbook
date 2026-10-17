@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><meta name="referrer" content="no-referrer">
+<meta name="description" content="简 Gene 的听海拾音。在手绘海底间相遇，挑一首喜欢的歌。"><title>简 Gene · 听海拾音</title><link rel="icon" href="data:,"><link rel="stylesheet" href="fonts/fonts.css"><link rel="stylesheet" href="seascape.css?v=dive-v6-20261018"><link rel="stylesheet" href="dive.css?v=dive-v6-20261018">
+<link rel="preload" as="image" href="art/dive-abyss.webp" media="(min-width:801px)"><script defer src="songs.js"></script><script defer src="ocean.js?v=dive-v6-20261018"></script><script defer src="dive-motion.js?v=dive-v6-20261018"></script><script defer src="preview.js?v=dive-v6-20261018"></script>
+</head>
+<body>
+<a href="#catalog" class="skip-link">跳到歌单</a>
+<header class="masthead"><a href="#intro" class="wordmark">简 <em>Gene</em><small>听海拾音</small></a><nav aria-label="主要导航"><button id="motion-toggle" type="button" aria-pressed="false">静态浏览</button><a href="#catalog" class="direct">直接点歌 <i class="icon" aria-hidden="true">&#xe06c;</i></a></nav></header>
+<main id="journey"><div class="stage">
+<div class="ocean-world" aria-hidden="true"><div class="ocean-backdrop abyss"></div><div class="ocean-backdrop panorama"></div><div class="ocean-backdrop lagoon"></div><div class="reef-plane reef-far" data-plane="far"></div><div class="reef-plane reef-mid" data-plane="mid"></div><div class="sea-light"></div><canvas id="marine-life"></canvas><canvas id="jelly-life"></canvas><div class="reef-plane reef-near" data-plane="near"></div><div class="ocean-shade"></div></div>
+<div class="opening" aria-hidden="true"><p>A song beneath the tide</p><h2>听海拾音</h2><span>向下滚动，循着微光前行</span><b class="dive-cue"></b></div>
+<div class="track">
+<section id="intro" class="panel intro-panel" aria-labelledby="intro-title">
+ <div class="profile-card" id="profile">
+  <figure class="portrait"><img src="art/gene-avatar.jpg" width="512" height="512" fetchpriority="high" alt="简Gene的官方头像，银白头发、冰蓝头饰与青蓝丝带"><figcaption>一颗珍珠，一段旋律。</figcaption></figure>
+  <div class="intro-copy"><p class="opening-note">在歌声里，相遇。</p><h1 id="intro-title">简 <em>Gene</em></h1><p class="book-title">听海拾音</p><p class="bio">万千基因碎片，<br>都是我的关键词。</p>
+  <nav class="social-links" aria-label="Gene 的主页与直播间">
+   <div class="social-platform"><span class="platform-label">BILIBILI <small>哔哩哔哩</small></span><div>
+    <a href="https://live.bilibili.com/4490088" target="_blank" rel="noopener noreferrer">B站直播间 <i class="icon" aria-hidden="true">&#xe092;</i></a>
+    <a href="https://space.bilibili.com/86019301" target="_blank" rel="noopener noreferrer">B站主页 <i class="icon" aria-hidden="true">&#xe092;</i></a>
+   </div></div><div class="social-platform"><span class="platform-label">DOUYIN <small>抖音</small></span><div>
+    <a href="https://live.douyin.com/275562736092?anchor_id=7615951594568041529" target="_blank" rel="noopener noreferrer">抖音直播间 <i class="icon" aria-hidden="true">&#xe092;</i></a>
+    <a href="https://www.douyin.com/user/MS4wLjABAAAAn0Gouh5qGzwfe0c198iU8EBaXYwhuBcJytyCOolkWvOhZwonUHDcyO6VsBAgP0y0?from_tab_name=live" target="_blank" rel="noopener noreferrer">抖音主页 <i class="icon" aria-hidden="true">&#xe092;</i></a>
+   </div></div>
+  </nav><a href="#catalog" class="turn-link">挑一首喜欢的歌 <i class="icon" aria-hidden="true">&#xe06c;</i></a></div>
+ </div><p class="scroll-note"><span>继续向前，拾起一首歌</span><i class="icon" aria-hidden="true">&#xe06c;</i></p>
+</section>
+<section id="catalog" class="panel catalog-panel" aria-labelledby="catalog-title">
+  <div class="catalog-art" aria-hidden="true"></div>
+  <div class="catalog-inner">
+    <div class="catalog-heading"><div><p class="hand-caption">留一页，给喜欢的旋律。</p><h2 id="catalog-title">歌单目录 <em>Song notes</em></h2></div><button id="random-button" aria-label="随机选歌" type="button" class="random-button"><span>随机选歌 <i class="icon" aria-hidden="true">&#xe422;</i></span></button></div>
+    <div class="notebook-tools"><div class="tabs" aria-label="歌曲分组"><button type="button" data-tab="all" aria-pressed="true">全部 <span id="all-count">823</span></button><button type="button" data-tab="favorites" aria-pressed="false">收藏 <span id="favorite-count">0</span></button><button type="button" data-tab="recent" aria-pressed="false">最近 <span id="recent-count">0</span></button></div><div class="search-wrap"><i class="icon" aria-hidden="true">&#xe30c;</i><input id="search" type="search" aria-label="搜索歌名、歌手或编号" placeholder="找一首歌 / 歌手 / 编号" autocomplete="off"><kbd aria-hidden="true">/</kbd></div></div>
+    <div class="page-topline"><p>曲目 / 演唱者</p><span id="result-count" aria-live="polite">823 首</span></div>
+    <div class="songs-scroll" tabindex="0" role="region" aria-label="歌曲列表"><div id="song-list" class="song-list"></div></div>
+    <div class="pagination"><button id="first-page" type="button" aria-label="第一页">首页</button><button id="previous-page" type="button" aria-label="上一页"><i class="icon" aria-hidden="true">&#xe058;</i></button><span id="page-count" aria-live="polite"></span><button id="next-page" type="button" aria-label="下一页"><i class="icon" aria-hidden="true">&#xe06c;</i></button><button id="last-page" type="button" aria-label="最后一页">尾页</button></div>
+    <p class="local-note">收藏与最近记录，保存在当前浏览器。</p>
+  </div>
+</section>
+</div><div class="coral-wipe" aria-hidden="true"><div class="wipe-branch"></div><div class="wipe-body"></div><div class="wipe-trailing"></div></div></div></main>
+<footer class="journey-nav"><a href="#intro" data-scene="0" aria-current="page">入海</a><a href="#profile" data-scene="1">相遇</a><div class="journey-line" aria-hidden="true"><b></b></div><a href="#catalog" data-scene="2">拾音</a></footer>
+
+<div id="feedback" class="feedback" role="status" hidden><p></p><input id="manual-copy" aria-label="手动复制点歌文字" readonly hidden><button type="button" aria-label="关闭提示"><i class="icon" aria-hidden="true">&#xe4f6;</i></button></div>
+<dialog id="random-dialog" aria-labelledby="random-title"><form method="dialog"><button class="dialog-close" aria-label="关闭随机选歌"><i class="icon" aria-hidden="true">&#xe4f6;</i></button></form><p class="hand-caption">偶然，也是一种相遇</p><h2 id="random-title">让歌声替你选</h2><div class="random-song"><span id="random-sequence"></span><h3 id="random-name"></h3><p id="random-singer"></p></div><div class="dialog-actions"><button id="random-again" type="button">再换一首 <i class="icon" aria-hidden="true">&#xe422;</i></button><button id="random-confirm" type="button" class="primary">就点这首 <i class="icon" aria-hidden="true">&#xe06c;</i></button></div></dialog>
+</body></html>
