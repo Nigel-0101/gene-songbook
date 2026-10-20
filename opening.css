@@ -1,0 +1,34 @@
+/* Opening study: falling light, camera retreat, then living water. */
+@font-face{font-family:SeaTitle;src:url(fonts/sea-title.woff2) format('woff2');font-style:normal;font-weight:400;font-display:swap;unicode-range:U+542C,U+6D77,U+62FE,U+97F3}
+:root{--launch-camera:0;--launch-gate:1;--launch-light:0;--launch-flare:0;--launch-fish:0;--launch-water:0;--launch-vignette:.55;--glyph-0:0;--glyph-1:0;--glyph-2:0;--glyph-3:0}
+#garden-fish{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transform:scale(calc(1 + var(--depth) * .64));transform-origin:50% 55%}
+.env-garden{filter:blur(calc((1 - var(--launch-camera)) * 4px))}
+.env-garden .environment-base{transform:scale(calc(1.14 - var(--launch-camera) * .14 + var(--depth) * .18))}
+.env-garden .garden-far{transform:scale(calc(1.22 - var(--launch-camera) * .22 + var(--depth) * .4))}
+.env-garden .garden-distant{transform:scale(calc(1.32 - var(--launch-camera) * .32 + var(--depth) * .55))}
+.env-garden .garden-shelf{transform:scale(calc(1.4 - var(--launch-camera) * .4 + var(--depth) * .85))}
+.env-garden .garden-middle{transform:scale(calc(1.65 - var(--launch-camera) * .65 + var(--depth) * 1.45))}
+.env-garden .coral-a{--gate-direction:1}.env-garden .coral-b{--gate-direction:-1}
+.env-garden .garden-low{transform:scale(calc(1.75 - var(--launch-camera) * .75 + var(--depth) * 1.9))}
+.env-garden .garden-kelp{transform:scale(calc(1.9 - var(--launch-camera) * .9 + var(--depth) * 2.6))}
+.env-garden .kelp-a{--gate-direction:1}.env-garden .kelp-b{--gate-direction:-1}
+.env-garden .garden-shells{transform:scale(calc(2.1 - var(--launch-camera) * 1.1 + var(--depth) * 2.8))}
+.env-garden .garden-canopy{transform:scale(calc(1.45 - var(--launch-camera) * .45 + var(--depth) * 1.2))}
+.launch-atmosphere{position:absolute;inset:0;pointer-events:none;opacity:var(--env-garden);overflow:hidden}
+.launch-atmosphere:before{content:'';position:absolute;inset:-10%;background:radial-gradient(ellipse at 52% 37%,transparent 16%,#06374b55 62%,#03283fd9 100%);opacity:var(--launch-vignette)}
+#launch-water{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.opening h2{display:flex;gap:.13em;padding-left:0;font-family:SeaTitle,Hand,serif;font-size:clamp(48px,5.6vw,140px);font-weight:400;letter-spacing:0;opacity:1;filter:none;transform:none;perspective:700px}
+.opening h2 i{display:block;font:inherit;font-style:normal;opacity:var(--glyph);filter:blur(calc((1 - var(--glyph)) * 8px));transform:translate3d(0,calc((1 - var(--glyph)) * 38px),calc((1 - var(--glyph)) * -80px)) rotateX(calc((1 - var(--glyph)) * 30deg));text-shadow:0 0 calc(3px + (1 - var(--glyph)) * 26px) #eaffff}
+.opening h2 i:nth-child(1){--glyph:var(--glyph-0)}.opening h2 i:nth-child(2){--glyph:var(--glyph-1)}.opening h2 i:nth-child(3){--glyph:var(--glyph-2)}.opening h2 i:nth-child(4){--glyph:var(--glyph-3)}
+.opening .dive-cue{position:relative;height:58px;background:linear-gradient(#3c849480,transparent)}
+.opening .dive-cue:before{content:'';position:absolute;top:0;left:-3px;width:7px;height:7px;border:1px solid #dff6f4;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#80c9d2);box-shadow:0 0 10px #efffff;animation:pearl-descent 2.8s cubic-bezier(.2,.7,.3,1) infinite}
+@keyframes pearl-descent{0%{transform:translateY(0);opacity:0}25%{opacity:1}85%,100%{transform:translateY(40px);opacity:0}}
+.opening-controls{position:fixed;right:4.3vw;bottom:22px;z-index:35;display:flex;align-items:center;gap:12px;font:13px var(--hand);color:#235c70}
+.opening-controls button{font:inherit;color:inherit;border:1px solid #f7ffefaa;background:#eef6e2df;padding:8px 15px;min-height:36px;border-radius:45% 46% 40% 43% / 15% 19% 17% 18%;box-shadow:0 2px 12px #2c7d8a18;transition:background .18s,transform .18s}
+.opening-controls button:hover{background:#fffff1;transform:translateY(-2px)}.opening-controls button:active{transform:translateY(0) scale(.97)}
+.opening-controls button:focus-visible{outline:2px solid #246c80;outline-offset:4px}.opening-controls[hidden],.opening-controls button[hidden]{display:none}
+.opening-review-note{display:none}.opening-review .opening-review-note{display:inline;font-size:11px;opacity:.75}
+body[data-environment="garden"] .ocean-shade{background:linear-gradient(160deg,#020e1d,#041b2a 64%,#021321)}
+.static-ocean #garden-fish,.static-ocean .launch-atmosphere,.static-ocean .opening-controls{display:none}
+@media(max-width:800px){#garden-fish,.launch-atmosphere{display:none}.opening h2{gap:.13em;font-size:46px}.opening h2 i{opacity:1;filter:none;transform:none}.opening-controls{display:none}.opening .dive-cue:before{animation:none}}
+@media(prefers-reduced-motion:reduce){#garden-fish,.launch-atmosphere,.opening-controls{display:none}.opening h2 i{opacity:1;filter:none;transform:none}.opening .dive-cue:before{animation:none}}

@@ -1,0 +1,47 @@
+/* A book block beneath the accepted paper faces; no extra illustrated sheets. */
+.catalog-panel{--bookmark-width:clamp(130px,14.2vw,345px);--bookmark-overlap:calc(var(--folio-width)*.052);--block-depth:clamp(12px,.9vw,25px)}
+.bound-book{rotate:x calc(var(--book-open)*5deg)}
+.book-volume{position:absolute;inset:0;z-index:1;pointer-events:none;transform-style:preserve-3d}
+.book-volume:before{content:'';position:absolute;left:calc((1 - var(--book-open))*50%);right:-1%;top:5%;bottom:-3%;background:#042c3c7a;border-radius:5%;filter:blur(18px);transform:translate3d(6px,18px,-36px)}
+.volume-half{position:absolute;top:.65%;width:49.6%;height:98.7%;transform-style:preserve-3d;backface-visibility:hidden}
+.volume-half>*{backface-visibility:hidden}
+.volume-left{right:50%;--edge-mask:url(art/v14/leaf-left.svg);--edge-side:-1;transform-origin:right center;transform:rotateY(calc((1 - var(--book-open))*180deg));visibility:var(--book-paper-visible)}
+.volume-right{left:50%;--edge-mask:url(art/v14/leaf-right.svg);--edge-side:1}
+.volume-board{position:absolute;inset:.1% .55% .1%;background:#173b48 url(art/v15/card-grain.svg) center/180px 180px;mask:var(--edge-mask) 0 0/100% 100% no-repeat;-webkit-mask:var(--edge-mask) 0 0/100% 100% no-repeat;border:0;border-radius:0;box-shadow:none;transform:translate3d(0,calc(var(--block-depth)*.72 + 2px),-22px)}
+.volume-leaf{--wear:0px;--cut:.998;position:absolute;inset:.15% .3% 0;mask:var(--edge-mask) 0 0/100% 100% no-repeat;-webkit-mask:var(--edge-mask) 0 0/100% 100% no-repeat;background-color:#b9a078;background-image:url(art/v16/edge-speckles.svg),linear-gradient(100deg,#7b603d77,#dac29b33 11%,#9b734233 33%,#e1cca947 57%,#70573355 93%),url(art/v14/parchment.png);background-size:183px 137px,100% 100%,200% 100%;background-position:calc(var(--layer)*17px) calc(var(--layer)*11px),center,calc(var(--layer)*7%) bottom;background-blend-mode:multiply,multiply,normal;transform:translate3d(calc(var(--edge-side)*var(--layer)*.14px),calc(var(--block-depth)*var(--layer)/8*.72 + var(--wear)),calc(var(--layer)*-2px)) scaleX(var(--cut));transform-origin:center}
+.volume-leaf:nth-of-type(3n){--wear:.6px;--cut:.995;background-color:#a68b63;filter:brightness(.87) saturate(.78)}
+.volume-leaf:nth-of-type(3n + 1){--wear:-.4px;--cut:1;filter:brightness(.95) saturate(.83)}
+.volume-leaf:nth-of-type(3n + 2){--wear:.2px;--cut:.997;filter:brightness(.91) saturate(.85)}
+.volume-spine{position:absolute;left:calc(50% + 2px);top:.9%;width:calc(var(--block-depth)*.95);height:98%;border-radius:45% 8% 8% 45% / 2% 1% 1% 2%;background:linear-gradient(90deg,#0c2936,#204958 22%,#4c6b6d 41%,#193d4c 68%,#0b2c3a);border:1px solid #a28c60;box-shadow:inset 3px 0 4px #d1c18a66;transform:translate3d(0,2px,-10px);opacity:calc(1 - var(--book-open));overflow:hidden;backface-visibility:hidden}
+.volume-spine i{position:absolute;left:0;right:0;height:5px;background:linear-gradient(#bba777,#5d6657 35%,#d1bc85 60%,#273e43);box-shadow:0 3px 3px #071d2c66}
+.volume-spine i:nth-child(1){top:7%}.volume-spine i:nth-child(2){top:26%}.volume-spine i:nth-child(3){top:75%}.volume-spine i:nth-child(4){top:93%}
+/* Wide, soft curvature of each leaf, with a narrow binding crease. */
+.folio-left{box-shadow:inset -36px 0 32px -15px #423b2c78,inset 10px 0 17px -9px #a98b5544}
+.folio-right{box-shadow:inset 36px 0 32px -15px #423b2c78,inset -10px 0 17px -9px #a98b5544}
+.folio-page:after{inset:0;width:auto;transform:none;background:linear-gradient(90deg,#b69c6b12,transparent 24%,#fff8e829 60%,#fff4d857 85%,#58463144 98%,#382f2855);z-index:0}
+.folio-page>*{position:relative;z-index:1}
+.folio-left .folio-footer{padding-left:clamp(28px,2.8vw,60px)}
+.folio-right:after{background:linear-gradient(90deg,#382f2866,#58463144 2%,#fff4d866 15%,#fff8e821 38%,transparent 78%,#95744720)}
+.book-slice .folio-page:after{opacity:.7}
+/* The card overlaps only the number margin; the four links are printed on its extension. */
+.catalog-person.loose-bookmark{left:calc(50% - var(--folio-width)/2 - var(--bookmark-width) + var(--bookmark-overlap));top:calc(48% + min(5vh,50px));height:auto;transform:translateY(-48%) translateX(calc((1 - var(--bookmark))*(var(--folio-width)/2 + var(--bookmark-width) - var(--bookmark-overlap)))) translateY(calc((1 - var(--bookmark))*-40px)) rotate(calc(-2deg*var(--bookmark)));filter:drop-shadow(7px 10px 5px #0829386b)}
+.loose-bookmark .character-window{z-index:1}
+.bookmark-tail{position:relative;isolation:isolate;width:95%;flex:none;margin:-9% auto 0;padding:22px 14px 22px;background:none;border:0;border-radius:0;box-shadow:none;color:#254b56}
+.bookmark-tail:before{content:'';position:absolute;inset:0;z-index:-2;background:#dbc391 url(art/v14/parchment.png) 50% 93%/190% 310%;mask:url(art/v16/tail-mask.svg) 0 0/100% 100% no-repeat;-webkit-mask:url(art/v16/tail-mask.svg) 0 0/100% 100% no-repeat}
+.bookmark-tail:after{content:'';position:absolute;inset:0;z-index:-1;background:url(art/v16/tail-border.svg) center/100% 100% no-repeat;pointer-events:none}
+.bookmark-tail .social-links{display:flex;gap:2px;width:100%;max-width:none;padding:0;margin:0;background:none}
+.bookmark-tail .social-platform>div{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.bookmark-tail .social-links a{font:clamp(10px,.7vw,15px)/1.35 var(--hand);color:#254b56;padding:6px 0;min-height:32px;gap:3px;justify-content:center;border:0;border-bottom:1px solid #7d785c44;border-radius:0;background:none;box-shadow:none;white-space:nowrap;transition:background .16s,color .16s}
+.bookmark-tail .social-platform:last-child a{border-bottom:0}
+.bookmark-tail .platform-logo{display:none}
+.bookmark-tail a:focus-visible{outline:2px solid #255365;outline-offset:2px;background:#fff3d1}
+@media(hover:hover) and (pointer:fine){.bookmark-tail .social-links a:hover{background:#fff3d16b;color:#113948;transform:none}}
+/* Invitation begins only after arrival. A stable ink color stays readable. */
+.book-scroll-note{top:calc(100% + var(--block-depth) + 9px);gap:4px;visibility:var(--book-hint-visible,hidden)}
+.book-scroll-note span{padding:4px 13px 5px;background:#f2ebd8e8;border-block:1px solid #c3b79080;color:#204b58;-webkit-text-fill-color:currentColor;background-clip:border-box;letter-spacing:.08em;font-size:clamp(12px,1vw,22px);text-shadow:0 1px #fff9e9;box-shadow:0 2px 10px #163c4b18;animation:folio-invitation 3s ease-in-out infinite}
+@keyframes folio-invitation{0%,100%{opacity:.82}50%{opacity:1}}
+@media(min-width:1800px){.catalog-panel{--bookmark-overlap:calc(var(--folio-width)*.044)}.bookmark-tail{padding:32px 22px 30px}.bookmark-tail .social-links a{min-height:38px}}
+@media(min-width:801px) and (max-height:700px){.catalog-panel{--bookmark-width:clamp(125px,11.7vw,160px)}.bookmark-tail{padding:17px 10px 17px}.bookmark-tail .social-links a{font-size:10px;min-height:28px}.book-scroll-note{top:calc(100% + var(--block-depth) + 5px)}}
+@media(max-width:800px){.book-volume{display:none}.bound-book{rotate:none}.catalog-person.loose-bookmark{left:auto;top:auto;width:196px;height:auto;transform:rotate(-2deg);margin:12px auto 8px}.bookmark-tail{padding:22px 14px 23px}.bookmark-tail .social-links a{font-size:10px;min-height:40px}.folio-page{filter:drop-shadow(0 3px 0 #bca981) drop-shadow(0 4px 0 #1b4350);margin-bottom:12px}.folio-page:after{display:block;background:linear-gradient(90deg,#7c65441a,transparent 15%,#fff7e514 75%,#765b3125);inset:0;width:auto}}
+@media(prefers-reduced-motion:reduce){.bound-book{rotate:none}.book-scroll-note span{animation:none}.bookmark-tail .social-links a{transition:none}}
+@media(max-width:800px){.folio-left .folio-footer{padding-left:0}}
