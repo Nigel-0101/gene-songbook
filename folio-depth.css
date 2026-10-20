@@ -26,7 +26,9 @@
 /* The card overlaps only the number margin; the four links are printed on its extension. */
 .catalog-person.loose-bookmark{left:calc(50% - var(--folio-width)/2 - var(--bookmark-width) + var(--bookmark-overlap));top:calc(48% + min(5vh,50px));height:auto;transform:translateY(-48%) translateX(calc((1 - var(--bookmark))*(var(--folio-width)/2 + var(--bookmark-width) - var(--bookmark-overlap)))) translateY(calc((1 - var(--bookmark))*-40px)) rotate(calc(-2deg*var(--bookmark)));filter:drop-shadow(7px 10px 5px #0829386b)}
 .loose-bookmark .character-window{z-index:1}
-.bookmark-tail{position:relative;isolation:isolate;width:95%;flex:none;margin:-9% auto 0;padding:22px 14px 22px;background:none;border:0;border-radius:0;box-shadow:none;color:#254b56}
+/* The card's opaque paper spans x=50..798 of 848px. The tail mask occupies 98%
+   of its box, so 90.1% aligns both visible edges through every shared scale/tilt. */
+.bookmark-tail{position:relative;isolation:isolate;width:90.1%;flex:none;margin:-9% auto 0;padding:22px 14px 22px;background:none;border:0;border-radius:0;box-shadow:none;color:#254b56}
 .bookmark-tail:before{content:'';position:absolute;inset:0;z-index:-2;background:#dbc391 url(art/v14/parchment.png) 50% 93%/190% 310%;mask:url(art/v16/tail-mask.svg) 0 0/100% 100% no-repeat;-webkit-mask:url(art/v16/tail-mask.svg) 0 0/100% 100% no-repeat}
 .bookmark-tail:after{content:'';position:absolute;inset:0;z-index:-1;background:url(art/v16/tail-border.svg) center/100% 100% no-repeat;pointer-events:none}
 .bookmark-tail .social-links{display:flex;gap:2px;width:100%;max-width:none;padding:0;margin:0;background:none}
