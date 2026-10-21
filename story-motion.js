@@ -25,13 +25,14 @@ function paint(){
  set('launch-camera',at(2.35,5.15));set('launch-gate',1-at(2.35,5.15));set('launch-light',at(1.3,5.15));set('launch-flare',arrivalDone?0:smooth(.1,1.5,elapsed)*(1-smooth(4.5,5.5,elapsed)));set('launch-vignette',arrivalDone?0:.88*(1-smooth(1.8,5.15,elapsed)));
  for(let i=0;i<4;i++)set('glyph-'+i,at(5.1+i*.17,6.2+i*.17));
  window.geneOpening?.update({elapsed,done:arrivalDone,p,still,mobile:!desktop.matches});
- const out=1-smooth(.585,.65,p),profile=still?(p<.5?1:0):smooth(.185,.225,p)*out,profileMove=still?1:smooth(.25,.29,p),paper=still?1:smooth(.185,.225,p),text=still?1:smooth(.28,.325,p);
- const reveal=still?1:smooth(.095,.205,p);
- const library=still?(p>=.5?1:0):(p>=.67?1:0),garden=still?0:p<.205?1:0,cove=still?1-library:p>.095&&p<.67?1:0;
- set('passage-edge',(120-140*reveal)+'%');set('passage-reveal',reveal);
+ const out=1-smooth(.585,.65,p),profile=still?(p<.5?1:0):smooth(.235,.27,p)*out,profileMove=still?1:smooth(.24,.275,p),paper=still?1:smooth(.24,.285,p),text=still?1:smooth(.265,.30,p);
+ const reveal=still?1:smooth(.09,.22,p);
+ set("passage-pan",still?0:smooth(.065,.23,p));set("bridge-opacity",still?0:smooth(.065,.09,p)*(1-smooth(.205,.235,p)));
+ const library=still?(p>=.5?1:0):(p>=.67?1:0),garden=still?0:1-smooth(.21,.235,p),cove=still?1-library:p>.085&&p<.67?1:0;
+ set('passage-edge',(115-140*reveal)+'%');set('passage-reveal',reveal);
  const book=still?library:smooth(.695,.72,p),flight=still?1:smooth(.75,.835,p),open=still?1:smooth(.85,.96,p),dock=still?1:smooth(.85,.94,p),pages=still?1:smooth(.925,.995,p),tab=still?1:smooth(.918,.975,p);
- set('env-garden',garden);set('env-cove',cove);set('env-library',library);set('depth',smooth(0,.18,p)*.32);set('cove-depth',smooth(.24,.65,p));set('ruins-depth',smooth(.67,1,p));set('bright',1);set('realm',library);set('shade',garden&&!still?.94*(1-arrival):0);
- set('passage-ui',still?1:1-.45*smooth(.09,.14,p)*(1-smooth(.20,.24,p)));set('opening-opacity',still?0:1-smooth(.04,.14,p));set('profile-opacity',profile);set('profile-scale',1);set('profile-move',profileMove);set('profile-paper',paper);set('profile-avatar',still?1:smooth(.225,.25,p));set('profile-text',text);set('profile-links',still?1:smooth(.305,.35,p));
+ set('env-garden',garden);set('env-cove',cove);set('env-library',library);set('depth',smooth(0,.12,p)*.12);set('cove-depth',smooth(.24,.65,p));set('ruins-depth',smooth(.67,1,p));set('bright',1);set('realm',library);set('shade',garden&&!still?.94*(1-arrival):0);
+ set('passage-ui',still?1:1-.45*smooth(.09,.14,p)*(1-smooth(.20,.24,p)));set('opening-opacity',still?0:1-smooth(.05,.105,p));set('profile-opacity',profile);set('profile-scale',1);set('profile-move',profileMove);set('profile-paper',paper);set('profile-avatar',still?1:smooth(.235,.275,p));set('profile-text',text);set('profile-links',still?1:smooth(.285,.315,p));
  set('book-left',still?1:smooth(.88,.935,p));set('book-leaf-1',still?1:smooth(.87,.945,p));set('book-leaf-2',still?1:smooth(.885,.96,p));set('book-physical',still?0:1-smooth(.96,.968,p));set('book-ink',pages);set('book-paper-visible',open>.002?'visible':'hidden');
  // The invitation waits for the book to settle at the reader, even if scrolling stops.
  if(still||!desktop.matches||flight<.9998)hintArrival=null;
@@ -39,7 +40,7 @@ function paint(){
  const hint=hintArrival===null?0:smooth(120,650,now-hintArrival)*(1-smooth(.02,.28,open));
  if(hintArrival!==null&&now-hintArrival<650)schedule();
  set('book-hint-visible',hint>.001?'visible':'hidden');
- set('reading-focus',Math.max(profile*paper,book*smooth(.83,.965,p)));set('catalog-opacity',book);set('catalog-scale',1);set('book-flight',flight);set('book-open',open);set('book-dock',dock);set('book-pages',pages);set('bookmark',tab);set('cover-alpha',1);set('book-hint',hint);
+ set('reading-focus',Math.max(profile*paper*.6,book*smooth(.83,.965,p)));set('catalog-opacity',book);set('catalog-scale',1);set('book-flight',flight);set('book-open',open);set('book-dock',dock);set('book-pages',pages);set('bookmark',tab);set('cover-alpha',1);set('book-hint',hint);
  const grow=still?0:smooth(.603,.66,p),retreat=still?0:smooth(.69,.75,p);const wipe=still?0:smooth(.603,.62,p)*(1-smooth(.73,.75,p));set('wipe-opacity',wipe);set('coral-grow',grow*(1-retreat));set('coral-cover',still?0:smooth(.64,.66,p)*(1-smooth(.69,.72,p)));set('wipe-x',0);
  document.body.dataset.environment=garden?'garden':library?'library':'cove';document.body.classList.add('light-water');
  document.querySelector('.masthead').inert=desktop.matches&&((!arrivalDone&&elapsed<6.2)||(!still&&p>.11&&p<.205));document.querySelector('.journey-nav').inert=desktop.matches&&((!arrivalDone&&elapsed<6.2)||(!still&&p>.11&&p<.205));

@@ -1,0 +1,24 @@
+/* Continuous illustrated passage between the opening and profile. */
+:root{--passage-pan:0;--bridge-opacity:0}
+.passage-bridge{display:none}
+@media(min-width:801px){
+ .continuous-passage .env-cove{mask-image:linear-gradient(95deg,transparent calc(var(--passage-edge) - 10%),#000 calc(var(--passage-edge) + 10%));-webkit-mask-image:linear-gradient(95deg,transparent calc(var(--passage-edge) - 10%),#000 calc(var(--passage-edge) + 10%))}
+ .continuous-passage .env-garden .environment-base{translate:calc(var(--passage-pan) * -2%) 0;scale:1.04}
+ .continuous-passage .garden-far{translate:calc(var(--passage-pan) * -7vw) 0}
+ .continuous-passage .garden-distant{translate:calc(var(--passage-pan) * -12vw) 0}
+ .continuous-passage .garden-middle,.continuous-passage .garden-low{translate:calc(var(--passage-pan) * -22vw) 0}
+ .continuous-passage .garden-canopy{translate:calc(var(--passage-pan) * -26vw) 0}
+ .continuous-passage .garden-kelp,.continuous-passage .garden-shells{translate:calc(var(--passage-pan) * -34vw) 0}
+ .continuous-passage .env-cove .environment-base{translate:calc((1 - var(--passage-pan)) * 2vw) 0;scale:1.06}
+ .passage-bridge{display:block;position:absolute;inset:0;pointer-events:none;opacity:var(--bridge-opacity);z-index:3}
+ .passage-bridge i{position:absolute;background-repeat:no-repeat;background-position:center bottom;background-size:contain;bottom:-24vh;left:calc((94 - var(--passage-pan) * 150) * 1vw);width:38vw;height:116vh;filter:drop-shadow(8px 1px 12px #23586a0d);will-change:transform}
+ .passage-bridge .bridge-coral{background-image:url(art/v9/coral-right.webp);rotate:-9deg}
+ .passage-bridge .bridge-kelp{background-image:url(art/v9/kelp.webp);width:22vw;height:91vh;bottom:-28vh;left:calc((115 - var(--passage-pan) * 168) * 1vw);rotate:8deg}
+ .continuous-passage #marine-life{z-index:2;filter:contrast(1.18) saturate(1.12)}
+ .continuous-passage .stage>#jelly-life{z-index:1}
+ .continuous-passage .track{z-index:4}
+ .continuous-passage.static-ocean .env-cove{mask:none;-webkit-mask:none}
+ .continuous-passage.static-ocean .passage-bridge{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){.passage-bridge{display:none!important}}

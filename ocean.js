@@ -7,9 +7,11 @@
   const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t);};
   let seed=86019301;
   const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
-  const fish=Array.from({length:1920},(_,i)=>{
-    const school=i%3,u=random(),spread=random()-.5;
-    return {x:(u-.5)*2.3+(school-1)*.22,y:Math.sin(u*9+school*2.1)*.42+spread*.3,z:2.65+random()*.7+school*.2,phase:random()*Math.PI*2,size:2.4+random()*3.2,speed:.65+random()*.7,light:random(),school};
+  // Compact horizontal shoals, with tapered ends and separate depth planes.
+  const fish=Array.from({length:720},(_,i)=>{
+    const school=i%3,u=random(),r=Math.sqrt(random()),a=random()*Math.PI*2;
+    return {u,x:Math.cos(a)*r,y:Math.sin(a)*r,school,phase:random()*6.28,
+      size:random(),speed:.7+random(),light:random()};
   });
   const specks=Array.from({length:110},()=>({x:(random()-.5)*4,y:(random()-.5)*2.5,z:random()*5.5,size:.3+random()*.8,phase:random()*6.28}));
   const jellies=[{x:-.48,y:-.24,z:3.2,size:.30,phase:.7},{x:.32,y:-.22,z:4.2,size:.22,phase:4.1}];
@@ -81,21 +83,30 @@
     wake();
   }
   function drawFish(time){
-    fishVisible=0;fishSizes=[];const alpha=smooth(.065,.095,p)*(1-smooth(.195,.235,p));if(alpha<.001||!fishArt.complete||!fishArt.naturalWidth)return;
-    const q=smooth(.075,.225,p);
-    // Schools sweep along the soft reveal, with separate near/far speeds.
+    fishVisible=0;fishSizes=[];
+    const alpha=smooth(.055,.083,p)*(1-smooth(.218,.255,p));
+    if(alpha<.001||!fishArt.complete||!fishArt.naturalWidth)return;
+    const q=smooth(.065,.235,p),fw=fishArt.naturalWidth,fh=fishArt.naturalHeight;
     for(let layer=0;layer<3;layer++)for(const f of fish){
       if(f.school!==layer)continue;
-      const near=layer/2,z=3.8-near*2.5+(f.z%1)*.6-q*.27,projection=1.25/z;
-      const edge=1.38-q*1.86,lag=(layer-1)*.11;
-      const x=width*(edge+lag+f.x*(.24+near*.12)+Math.sin(time*.4+f.phase)*.009);
-      const y=height*(.5+f.y*1.24+Math.sin(f.x*3+layer)*.08-q*.12+Math.sin(time*.5+f.phase)*.012);
-      const size=(30+f.size*8.5)*projection*Math.min(2.6,width/1440);
+      const near=layer/2,lag=[.18,0,-.17][layer];
+      const center=1.43-q*1.65+lag;
+      const u=f.x*.43;
+      const x=width*(center+u+Math.sin(time*.7+f.phase)*.006);
+      const route=[.27,.53,.76][layer];
+      const arc=Math.sin((q+u*.7)*Math.PI*1.35+layer*.6)*.10;
+      const y=height*(route+arc+f.y*(.055+near*.033)+Math.sin(time*.8+f.phase)*.006);
+      const size=(10+near*12+f.size*(6+near*9))*Math.min(2.2,width/1280);
       if(x< -size||x>width+size||y< -size||y>height+size)continue;
-      ctx.save();ctx.translate(x,y);ctx.rotate(.12+Math.sin(time*.5+f.phase)*.065);ctx.globalAlpha=alpha*(.56+near*.4)*(.85+f.light*.15);
-      const fw=fishArt.naturalWidth,fh=fishArt.naturalHeight,ratio=fh/fw;
+      // The sprite faces left; its slope follows the shoal, never a vertical strip.
+      const slope=Math.cos((q+u*.7)*Math.PI*1.35+layer*.6)*.08;
+      ctx.save();ctx.translate(x,y);ctx.rotate(slope+Math.sin(time*.5+f.phase)*.025);
+      ctx.globalAlpha=alpha*(.65+near*.35)*(.9+f.light*.1);
+      const ratio=fh/fw;
       ctx.drawImage(fishArt,0,0,fw*.72,fh,-size*.5,-size*ratio*.5,size*.72,size*ratio);
-      const tail=1+Math.sin(time*(6+f.speed)+f.phase)*.16;ctx.drawImage(fishArt,fw*.72,0,fw*.28,fh,size*.22,-size*ratio*.5*tail,size*.28,size*ratio*tail);ctx.restore();fishVisible++;fishSizes.push(size);
+      const tail=1+Math.sin(time*(7+f.speed)+f.phase)*.15;
+      ctx.drawImage(fishArt,fw*.72,0,fw*.28,fh,size*.22,-size*ratio*.5*tail,size*.28,size*ratio*tail);
+      ctx.restore();fishVisible++;fishSizes.push(size);
     }
   }
   function drawSpecks(time){
@@ -120,9 +131,9 @@
     };
     // All silhouettes cross the current; none expands to cover the lens.
     const {far,turtle,companion,q}=creatureState(time);
-    mesh('jelly',0,width*far.x,height*far.y,Math.min(width*.12,height*.22),1672/940,.13,alpha*.65,3.2);
-    mesh('jelly',0,width*companion.x,height*companion.y,Math.min(width*.085,height*.16),1672/940,.13,alpha*.48,5.1);
-    mesh('turtle',1,width*turtle.x,height*turtle.y,Math.min(width*.19,height*.31),1024/1536,.5,alpha*.94,1.1);
+    mesh('jelly',0,width*far.x,height*far.y,Math.min(width*.07,height*.12),1672/940,.13,alpha*.65,3.2);
+    mesh('jelly',0,width*companion.x,height*companion.y,Math.min(width*.055,height*.10),1672/940,.13,alpha*.48,5.1);
+    mesh('turtle',1,width*turtle.x,height*turtle.y,Math.min(width*.105,height*.18),1024/1536,.5,alpha*.94,1.1);
     heroState=passageState();
     mesh('hero',0,heroState.x,heroState.y,heroState.size,1.5,.21,heroState.opacity,.7);
     const nearAlpha=0;
@@ -135,15 +146,15 @@
     const q=smooth(.075,.235,p),bob=Math.sin(time*.65)*.014;
     const far={x:1.19-q*1.65,y:.27-q*.12+bob};
     const companion={x:1.48-q*1.65,y:.74-q*.13-bob};
-    const turtle={x:1.34-q*1.85,y:.39-q*.16+bob};
+    const turtle={x:1.22-q*1.85,y:.38-Math.sin(q*Math.PI)*.09+bob};
     positions={far,companion,turtle,phase:q};
     return {far,companion,turtle,q};
   }
   function passageState(){
     const approach=smooth(.075,.235,p),exit=smooth(.205,.245,p);
     // A small, almost constant silhouette drifts laterally through the schools.
-    const maxSize=Math.min(width*.42,height*.55);
-    return {x:width*(1.52-2.05*approach),y:height*(.64-.17*approach),
+    const maxSize=Math.min(width*.14,height*.24);
+    return {x:width*(1.62-2.15*approach),y:height*(.68-.12*approach),
       size:maxSize*(.9+.1*Math.sin(approach*Math.PI)),opacity:smooth(.08,.108,p)*(1-exit)*.9,
       approach,exit,coverage:false,maxSize,reveal:smooth(.095,.205,p)};
   }
@@ -168,7 +179,7 @@
     drawHeroFallback(time);const alpha=smooth(.08,.115,p)*(1-smooth(.20,.245,p));if(alpha<.001)return;
     const {far,turtle,companion,q}=creatureState(time);
     const jelly=(pos,size,phase,opacity)=>{const im=fallbackArt.jelly;if(!im.complete||!im.naturalWidth)return;const h=size*im.naturalHeight/im.naturalWidth,stretch=1+Math.sin(time*2.1+phase)*.035;ctx.save();ctx.translate(pos.x*width,pos.y*height);ctx.rotate(-.58+Math.sin(time*.35+phase)*.055);ctx.globalAlpha=alpha*opacity;for(let y=0;y<im.naturalHeight;y+=24){const sh=Math.min(24,im.naturalHeight-y),t=y/im.naturalHeight,tail=smooth(.24,.95,t),dx=Math.sin(time*1.4-t*6+phase)*size*.026*tail;ctx.drawImage(im,0,y,im.naturalWidth,sh,-size*.5+dx,(t-.13)*h*stretch,size,sh/im.naturalHeight*h*stretch+1);}ctx.restore();};
-    jelly(far,Math.min(width*.12,height*.22),3.2,.65);jelly(companion,Math.min(width*.085,height*.16),5.1,.48);const im=fallbackArt.turtle;if(im.complete&&im.naturalWidth){const size=Math.min(width*.19,height*.31);ctx.save();ctx.globalAlpha=alpha*.94;ctx.translate(width*turtle.x,height*turtle.y);ctx.rotate(-2.5+Math.sin(time*1.35)*.025);ctx.drawImage(im,-size*.5,-size/3,size,size*2/3);ctx.restore();}
+    jelly(far,Math.min(width*.07,height*.12),3.2,.65);jelly(companion,Math.min(width*.055,height*.10),5.1,.48);const im=fallbackArt.turtle;if(im.complete&&im.naturalWidth){const size=Math.min(width*.105,height*.18);ctx.save();ctx.globalAlpha=alpha*.94;ctx.translate(width*turtle.x,height*turtle.y);ctx.rotate(-2.5+Math.sin(time*1.35)*.025);ctx.drawImage(im,-size*.5,-size/3,size,size*2/3);ctx.restore();}
   }
   function drawBubbles(time){
     if(time>=nextBurst){

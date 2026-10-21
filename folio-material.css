@@ -17,8 +17,8 @@
 /* One opaque paper face, with actual holes at the silhouette. The same mask
    follows its cloned front/verso during a turn; no rectangular backing sheet. */
 .folio-page{background-color:#eddfbd;background-image:url(art/v14/parchment.png);background-size:200% 100%;border-radius:0;mask-image:var(--leaf-mask);mask-size:100% 100%;mask-repeat:no-repeat;-webkit-mask-image:var(--leaf-mask);-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat}
-.folio-left{--leaf-mask:url(art/v14/leaf-left.svg);background-position:left center;box-shadow:inset -18px 0 24px #725b422b,inset 4px 0 9px #9c743a30}
-.folio-right{--leaf-mask:url(art/v14/leaf-right.svg);background-position:right center;box-shadow:inset 18px 0 24px #725b4233,inset -4px 0 9px #9c743a30}
+.folio-left{--leaf-mask:url(art/v14/leaf-left.svg?v=20);background-position:left center;box-shadow:inset -18px 0 24px #725b422b,inset 4px 0 9px #9c743a30}
+.folio-right{--leaf-mask:url(art/v14/leaf-right.svg?v=20);background-position:right center;box-shadow:inset 18px 0 24px #725b4233,inset -4px 0 9px #9c743a30}
 .book-slice:after{display:none}
 .book-slice .folio-page:before{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;background:#302a22;opacity:var(--curl-shade,0)}
 .book-slice .folio-page,.book-turn-underlay .folio-page{background-size:200% 100%}

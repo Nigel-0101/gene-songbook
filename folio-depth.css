@@ -5,10 +5,13 @@
 .book-volume:before{content:'';position:absolute;left:calc((1 - var(--book-open))*50%);right:-1%;top:5%;bottom:-3%;background:#042c3c7a;border-radius:5%;filter:blur(18px);transform:translate3d(6px,18px,-36px)}
 .volume-half{position:absolute;top:.65%;width:49.6%;height:98.7%;transform-style:preserve-3d;backface-visibility:hidden}
 .volume-half>*{backface-visibility:hidden}
-.volume-left{right:50%;--edge-mask:url(art/v14/leaf-left.svg);--edge-side:-1;transform-origin:right center;transform:rotateY(calc((1 - var(--book-open))*180deg));visibility:var(--book-paper-visible)}
-.volume-right{left:50%;--edge-mask:url(art/v14/leaf-right.svg);--edge-side:1}
+.volume-left{right:50%;--edge-mask:url(art/v14/leaf-left.svg?v=20);--binding-origin:100% 50%;transform-origin:right center;transform:rotateY(calc((1 - var(--book-open))*180deg));visibility:var(--book-paper-visible)}
+.volume-right{left:50%;--edge-mask:url(art/v14/leaf-right.svg?v=20);--binding-origin:0% 50%}
 .volume-board{position:absolute;inset:.1% .55% .1%;background:#173b48 url(art/v15/card-grain.svg) center/180px 180px;mask:var(--edge-mask) 0 0/100% 100% no-repeat;-webkit-mask:var(--edge-mask) 0 0/100% 100% no-repeat;border:0;border-radius:0;box-shadow:none;transform:translate3d(0,calc(var(--block-depth)*.72 + 2px),-22px)}
-.volume-leaf{--wear:0px;--cut:.998;position:absolute;inset:.15% .3% 0;mask:var(--edge-mask) 0 0/100% 100% no-repeat;-webkit-mask:var(--edge-mask) 0 0/100% 100% no-repeat;background-color:#b9a078;background-image:url(art/v16/edge-speckles.svg),linear-gradient(100deg,#7b603d77,#dac29b33 11%,#9b734233 33%,#e1cca947 57%,#70573355 93%),url(art/v14/parchment.png);background-size:183px 137px,100% 100%,200% 100%;background-position:calc(var(--layer)*17px) calc(var(--layer)*11px),center,calc(var(--layer)*7%) bottom;background-blend-mode:multiply,multiply,normal;transform:translate3d(calc(var(--edge-side)*var(--layer)*.14px),calc(var(--block-depth)*var(--layer)/8*.72 + var(--wear)),calc(var(--layer)*-2px)) scaleX(var(--cut));transform-origin:center}
+.volume-leaf{--wear:0px;--cut:.998;position:absolute;inset:.15% 0 0;mask:var(--edge-mask) 0 0/100% 100% no-repeat;-webkit-mask:var(--edge-mask) 0 0/100% 100% no-repeat;background-color:#b9a078;background-image:url(art/v16/edge-speckles.svg),linear-gradient(100deg,#7b603d77,#dac29b33 11%,#9b734233 33%,#e1cca947 57%,#70573355 93%),url(art/v14/parchment.png);background-size:183px 137px,100% 100%,200% 100%;background-position:calc(var(--layer)*17px) calc(var(--layer)*11px),center,calc(var(--layer)*7%) bottom;background-blend-mode:multiply,multiply,normal;transform:translate3d(0,calc(var(--block-depth)*var(--layer)/8*.72 + var(--wear)),calc(var(--layer)*-2px)) scaleX(var(--cut));transform-origin:var(--binding-origin)}
+/* All signatures meet at the hinge. Wear changes only the fore-edge, never splits the binding. */
+.volume-left>:is(.volume-leaf,.volume-board){right:-.5px}
+.volume-right>:is(.volume-leaf,.volume-board){left:-.5px}
 .volume-leaf:nth-of-type(3n){--wear:.6px;--cut:.995;background-color:#a68b63;filter:brightness(.87) saturate(.78)}
 .volume-leaf:nth-of-type(3n + 1){--wear:-.4px;--cut:1;filter:brightness(.95) saturate(.83)}
 .volume-leaf:nth-of-type(3n + 2){--wear:.2px;--cut:.997;filter:brightness(.91) saturate(.85)}
@@ -16,13 +19,16 @@
 .volume-spine i{position:absolute;left:0;right:0;height:5px;background:linear-gradient(#bba777,#5d6657 35%,#d1bc85 60%,#273e43);box-shadow:0 3px 3px #071d2c66}
 .volume-spine i:nth-child(1){top:7%}.volume-spine i:nth-child(2){top:26%}.volume-spine i:nth-child(3){top:75%}.volume-spine i:nth-child(4){top:93%}
 /* Wide, soft curvature of each leaf, with a narrow binding crease. */
-.folio-left{box-shadow:inset -36px 0 32px -15px #423b2c78,inset 10px 0 17px -9px #a98b5544}
-.folio-right{box-shadow:inset 36px 0 32px -15px #423b2c78,inset -10px 0 17px -9px #a98b5544}
-.folio-page:after{inset:0;width:auto;transform:none;background:linear-gradient(90deg,#b69c6b12,transparent 24%,#fff8e829 60%,#fff4d857 85%,#58463144 98%,#382f2855);z-index:0}
+.folio-left{--leaf-shadow:inset -32px 0 40px -18px #594b3447,inset 10px 0 17px -9px #a98b5533;box-shadow:var(--leaf-shadow)}
+.folio-right{--leaf-shadow:inset 32px 0 40px -18px #594b3447,inset -10px 0 17px -9px #a98b5533;box-shadow:var(--leaf-shadow)}
+.folio-page:after{inset:0;width:auto;transform:none;background:linear-gradient(90deg,#b69c6b12,transparent 24%,#fff8e829 60%,#fff4d857 85%,#6454382b 97%,#463c2e3b);z-index:0}
 .folio-page>*{position:relative;z-index:1}
 .folio-left .folio-footer{padding-left:clamp(28px,2.8vw,60px)}
-.folio-right:after{background:linear-gradient(90deg,#382f2866,#58463144 2%,#fff4d866 15%,#fff8e821 38%,transparent 78%,#95744720)}
-.book-slice .folio-page:after{opacity:.7}
+.folio-right:after{background:linear-gradient(90deg,#463c2e3b,#6454382b 3%,#fff4d866 15%,#fff8e821 38%,transparent 78%,#95744720)}
+/* Resting leaves and turn replicas share the same light at both endpoints. */
+.book-turn-underlay .folio-page,.book-slice .folio-page{box-shadow:var(--leaf-shadow)}
+.book-slice .folio-page:after{opacity:var(--leaf-shading,1)}
+.book-turn-shadow{background:radial-gradient(ellipse 12% 64% at 50% 50%,#3f352a3d,transparent 92%);filter:blur(6px)}
 /* The card overlaps only the number margin; the four links are printed on its extension. */
 .catalog-person.loose-bookmark{left:calc(50% - var(--folio-width)/2 - var(--bookmark-width) + var(--bookmark-overlap));top:calc(48% + min(5vh,50px));height:auto;transform:translateY(-48%) translateX(calc((1 - var(--bookmark))*(var(--folio-width)/2 + var(--bookmark-width) - var(--bookmark-overlap)))) translateY(calc((1 - var(--bookmark))*-40px)) rotate(calc(-2deg*var(--bookmark)));filter:drop-shadow(7px 10px 5px #0829386b)}
 .loose-bookmark .character-window{z-index:1}
