@@ -1,0 +1,124 @@
+/* Phone edition: introduction, then one uninterrupted parchment song list.
+   All overrides are scoped here so the approved desktop scenes stay intact. */
+@media (max-width:800px) {
+  html { scroll-padding-top:72px; }
+  body { background:#c4e4e1; overflow-x:hidden; }
+  #journey { height:auto; }
+  .stage { position:relative; top:auto; height:auto; overflow:clip; }
+  .track { position:relative; inset:auto; display:block; pointer-events:auto; }
+  .panel { position:relative; inset:auto; width:100%; margin:0; opacity:1; transform:none; perspective:none; }
+  .opening, .opening-controls, .coral-wipe, .passage-bridge, .launch-atmosphere,
+  .book-object, .book-volume, .book-scroll-note, #jelly-life, #marine-life,
+  #garden-fish, .surface-light, .ocean-shade, .dive-iris, #motion-toggle,
+  .catalog-person.loose-bookmark, .journey-nav [data-scene="0"], .journey-line,
+  .preview-note { display:none!important; }
+  .ocean-world { position:fixed; inset:0; transform:none; filter:none; z-index:-1; }
+  .env-cove .environment-base { background-image:url(art/v8/cove-mobile.webp); }
+  .masthead { height:56px; padding:0 18px; opacity:1; color:#164958;
+    background:#eaf3e8ed; border-bottom:1px solid #527d8133; }
+  .masthead .wordmark { font-size:19px; gap:5px; }
+  .masthead .wordmark em { font-size:29px; }
+  .masthead .wordmark small { display:none; }
+  .masthead nav { gap:0; font-size:13px; }
+  .masthead .direct { min-height:44px; padding:6px 10px; background:none; border:0; box-shadow:none; }
+  .masthead .pearl-mark { width:14px; height:14px; }
+  .intro-panel { min-height:0; padding:70px 10px 16px; }
+  .profile-card { width:100%; max-width:540px; height:auto; min-height:0; margin:auto;
+    display:flex; flex-direction:column; gap:18px; padding:30px 24px 34px;
+    filter:drop-shadow(0 8px 12px #28526022); }
+  .profile-card:before { opacity:1; }
+  .profile-card .portrait { width:100%; max-width:none; padding:0; gap:14px; }
+  .profile-card .portrait img { width:clamp(138px,43vw,200px); height:auto; max-width:none; max-height:none; border-width:3px; }
+  .profile-card .portrait figcaption { max-width:100%; font-size:12px; letter-spacing:.08em; color:#456a73; padding:6px 10px; background:#faf6e8df; border-radius:4px; }
+  .profile-card .intro-copy { width:100%; text-align:center; padding:0; }
+  .intro-copy .opening-note { font-size:13px; margin:0 0 10px; letter-spacing:.16em; color:#426977; }
+  .intro-copy h1 { font-size:48px; line-height:1.2; }
+  .intro-copy .book-title { font-size:21px; margin:13px 0 12px; }
+  .intro-copy .bio { margin:0 0 20px; font-size:13px; line-height:1.8; color:#234e5b; white-space:normal; }
+  .intro-copy .social-links { width:100%; max-width:380px; margin:auto; gap:8px; }
+  .intro-copy .social-platform>div { grid-template-columns:1fr 1fr; gap:8px; }
+  .intro-copy .social-links a { justify-content:center; min-height:46px; gap:6px; padding:8px 4px;
+    font-size:14px; font-weight:500; line-height:1.4; white-space:nowrap; color:#173f50;
+    background:#faf5e7f5; border:1px solid #74949266; border-radius:4px 9px 4px 9px;
+    box-shadow:0 2px 3px #20455009; transform:none; }
+  .intro-copy .social-links a:hover { background:#fdf9ee; transform:none; }
+  .intro-copy .platform-logo { width:22px; height:22px; }
+  .intro-copy .turn-link { margin-top:22px; min-height:48px; padding:11px 24px; font-size:17px; }
+  .catalog-panel { display:block; min-height:0; padding:8px 10px calc(85px + env(safe-area-inset-bottom)); }
+  .bound-book, .static-ocean .bound-book { position:relative; inset:auto; width:100%; height:auto; aspect-ratio:auto; transform:none; transform-style:flat; perspective:none; }
+  .catalog-layout, #song-list { display:block; position:relative; inset:auto; width:100%; max-width:560px;
+    height:auto; min-height:0; margin:auto; padding:0; transform:none; transform-style:flat;
+    background:none; border:0; border-radius:0; box-shadow:none; filter:none; opacity:1; perspective:none; }
+  #song-list>.folio-left, #song-list>.folio-right { display:none; }
+  #song-list>.mobile-songbook { display:flex; flex-direction:column; position:relative; inset:auto; width:100%; height:auto; min-height:calc(100svh - 120px);
+    padding:28px 17px 27px; margin:0; visibility:visible; transform:none; transform-style:flat;
+    background:#f2e3bf url(art/v14/parchment.png) center/100% 100% no-repeat;
+    --leaf-mask:url(art/mobile/single-leaf.svg); border:0; border-radius:0;
+    box-shadow:inset 0 0 14px #a8874233; filter:none; isolation:isolate; }
+  .mobile-songbook:before, .mobile-songbook:after { display:none; }
+  .mobile-songbook .folio-edition { display:none; }
+  .mobile-songbook .catalog-heading { margin:0 0 18px; min-height:48px; gap:6px; }
+  .mobile-songbook .catalog-heading h2 { font-size:27px; letter-spacing:.06em; }
+  .mobile-songbook .hand-caption { font-size:9px; color:#516b69; }
+  .mobile-songbook .random-button { min-height:44px; padding:5px 7px; font-size:12px; gap:4px; color:#254e59; }
+  .mobile-songbook .random-button .pearl-mark { width:11px; height:11px; }
+  .mobile-songbook .search-wrap { height:46px; min-height:46px; margin:0 0 8px; padding:0 11px;
+    border:1px solid #526f6866; border-radius:4px; background:#fff9e4a6; }
+  .mobile-songbook .search-wrap input { height:44px; font-size:16px; color:#173c48; }
+  .mobile-songbook .search-wrap input::placeholder { color:#536960; opacity:1; font-size:14px; }
+  .mobile-songbook .search-wrap kbd { display:none; }
+  .mobile-songbook .tabs { height:44px; min-height:44px; gap:22px; }
+  .mobile-songbook .tabs button { min-height:44px; font-size:14px; color:#36534f; }
+  .mobile-songbook .tabs span { font-size:11px; }
+  .mobile-songbook .page-topline { padding:12px 0 6px; font-size:11px; color:#5a6859; gap:6px; }
+  .mobile-songbook #result-count { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .mobile-song-rows { position:relative; isolation:isolate; flex:none; }
+  .mobile-song-rows .folio-rows { position:relative; z-index:1; display:flex; flex-direction:column; min-height:0; overflow:visible; font-size:16px; }
+  .mobile-watermark { position:absolute; z-index:0; left:50%; top:50%; width:90%; max-width:340px; height:min(100%,540px);
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    transform:translate(-50%,-50%); margin:0; pointer-events:none; opacity:.16; }
+  .mobile-watermark img { display:block; width:100%; height:calc(100% - 48px); min-height:0; object-fit:contain; }
+  .mobile-watermark figcaption { color:#215268; text-align:center; font:35px/1.2 var(--hand); margin-top:6px; }
+  .mobile-watermark em { font:1.18em var(--latin); }
+  .mobile-songbook .song-row { grid-template-columns:24px minmax(0,1fr) 44px 44px; gap:4px;
+    min-height:66px; padding:9px 0; opacity:1; transform:none; background:none; border-bottom:1px solid #6a796b33; }
+  .mobile-songbook .song-number { font-size:15px; color:#516f68; }
+  .mobile-songbook .song-name { font-size:16px; line-height:1.4; color:#123744; text-shadow:0 1px 1px #fff7df80; }
+  .mobile-songbook .song-singer { font-size:12px; line-height:1.5; color:#344d49; white-space:normal; overflow:visible; }
+  .mobile-songbook .favorite { width:44px; height:44px; }
+  .mobile-songbook .favorite:before { width:23px; height:26px; }
+  .mobile-songbook .select-song { width:44px; height:44px; min-height:44px; padding:2px; font-size:13px; color:#244b50; border-color:#698b7166; background:#fbf1d366; }
+  .mobile-songbook .is-selected .select-song { color:white; background:#356774; }
+  .mobile-folio-footer { position:relative; min-height:0; padding:16px 0 0; margin-top:auto; opacity:1; }
+  .mobile-folio-footer:before { display:none; }
+  .mobile-pagination { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .mobile-pagination button { min-height:44px; min-width:70px; padding:7px 10px; font:14px var(--hand); color:#244b50; border:1px solid #78918366; background:#f5eccb66; border-radius:4px; }
+  .mobile-pagination #page-count { margin:0; min-width:70px; text-align:center; font:23px var(--latin); color:#315b61; font-variant-numeric:tabular-nums; }
+  .mobile-jump { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:9px; }
+  .mobile-jump>button { min-height:44px; padding:6px; font:12px var(--hand); border:0; background:none; color:#36574f; }
+  .mobile-folio-footer #page-jump-form { margin:0; gap:5px; font-size:11px; color:#405b54; }
+  .mobile-folio-footer #page-jump { width:45px; height:44px; font-size:16px; font-variant-numeric:tabular-nums; }
+  .mobile-folio-footer #page-jump-form button { min-height:44px; font-size:12px; padding:5px; }
+  .mobile-folio-footer .local-note { margin:9px 0 0; text-align:center; font-size:10px; color:#62725f; }
+  .mobile-songbook:has(.empty-state) .mobile-watermark { display:none; }
+  .mobile-song-rows:not(:has(.song-row:nth-child(4))) .mobile-watermark { display:none; }
+  .mobile-songbook .empty-state { padding:32px 8px; font-size:17px; }
+  .journey-nav { width:auto; left:50%; bottom:calc(10px + env(safe-area-inset-bottom)); gap:8px; padding:4px 8px; opacity:1; }
+  .journey-nav a { min-height:44px; display:flex; align-items:center; justify-content:center; min-width:70px; font-size:14px; }
+  #feedback { max-width:calc(100vw - 24px); bottom:calc(77px + env(safe-area-inset-bottom)); font-size:14px; }
+  #random-dialog { width:calc(100vw - 32px); max-width:390px; max-height:calc(100dvh - 40px); padding:28px 22px; }
+  #random-dialog .dialog-actions button { min-height:44px; }
+  #random-dialog .random-song h3 { overflow-wrap:anywhere; }
+  button, a, input { -webkit-tap-highlight-color:#649ba332; }
+  a:focus-visible, button:focus-visible { outline:2px solid #205b70; outline-offset:2px; }
+}
+@media (max-width:359px) {
+  .profile-card { padding-inline:20px; }
+  .intro-copy .social-links a { font-size:12px; gap:4px; }
+  .intro-copy .platform-logo { width:19px; height:19px; }
+  #song-list>.mobile-songbook { padding-inline:14px; }
+  .mobile-songbook .catalog-heading h2 { font-size:24px; }
+  .mobile-songbook .random-button { font-size:11px; }
+  .mobile-songbook .song-row { grid-template-columns:21px minmax(0,1fr) 44px 44px; gap:2px; }
+  .mobile-songbook .song-name { font-size:15px; }
+}
