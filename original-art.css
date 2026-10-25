@@ -1,0 +1,56 @@
+/* Desktop keeps the integral gold card. The independent silver ornament
+   belongs exclusively to the mobile songbook (mobile.css). */
+.loose-bookmark .original-bookmark { isolation:isolate; }
+.loose-bookmark .original-bookmark .bookmark-frame { display:block; z-index:0; opacity:1; background:none; }
+.original-bookmark .bookmark-portrait {
+  position:absolute; z-index:1; inset:0; overflow:visible;
+  /* Keep the source silhouette intact inside the card's physical perimeter.
+     Its lower edge is occluded by the illustrated frame, not a tapered mask. */
+  clip-path:inset(0 5.3% 13% 5.3%);
+}
+.loose-bookmark .original-bookmark .bookmark-portrait img {
+  position:absolute; inset:auto; left:-285%; top:-4%;
+  width:660%; max-width:none; height:auto; object-fit:initial;
+}
+/* A genuine transparent picture-frame aperture gives the body an organic
+   foreground edge. The nameplate and botanical rim are one artwork. */
+.original-bookmark .bookmark-front {
+  position:absolute; z-index:2; top:0; left:-4.3%; width:108.6%;
+  height:100%; pointer-events:none;
+}
+/* The same continuous artwork is sliced at one shared coordinate. Only its
+   blank footer is shortened; portrait and nameplate keep their proportions. */
+.original-bookmark .bookmark-front:before,
+.original-bookmark .bookmark-front:after {
+  content:''; position:absolute; left:0; right:0;
+  background-image:url(art/v27/bookmark-continuous-frame.webp);
+  background-repeat:no-repeat;
+}
+.original-bookmark .bookmark-front:before {
+  top:0; height:100%; background-position:center top; background-size:100% auto;
+}
+.original-bookmark .bookmark-front:after {
+  top:100%; height:var(--bookmark-tail-height);
+  background-position:center bottom;
+  background-size:100% calc(var(--bookmark-tail-height)*3.92679601);
+}
+/* Only the original hair crosses the top frame. It shares the body transform,
+   so there is no mismatch or redrawn face at the join. */
+.original-bookmark .bookmark-hair {z-index:3;clip-path:inset(-4% 0 70% 0);}
+/* The portrait, nameplate and link footer share one uninterrupted frame.
+   The footer contains live links without a second paper or border layer.
+   108.6% aligns the artwork's inset outer edge with the accepted card. */
+@media(min-width:801px){
+  .catalog-person.loose-bookmark {--bookmark-tail-height:max(82px,calc(var(--bookmark-width)*.43));}
+  .catalog-person.loose-bookmark .bookmark-tail {
+    z-index:2; width:90.1%; height:var(--bookmark-tail-height);
+    margin:0 auto; padding:0 calc(var(--bookmark-width)*.055) max(12px,calc(var(--bookmark-width)*.07));
+    box-sizing:border-box; display:flex; align-items:center;
+    background:none; border:0; box-shadow:none;
+  }
+  .catalog-person.loose-bookmark .bookmark-tail:before,
+  .catalog-person.loose-bookmark .bookmark-tail:after {display:none;}
+  .catalog-person.loose-bookmark .bookmark-tail .social-links {
+    margin:0; transform:translateY(calc(var(--bookmark-width)*-.065));
+  }
+}

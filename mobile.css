@@ -43,7 +43,6 @@
     box-shadow:0 2px 3px #20455009; transform:none; }
   .intro-copy .social-links a:hover { background:#fdf9ee; transform:none; }
   .intro-copy .platform-logo { width:22px; height:22px; }
-  .intro-copy .turn-link { margin-top:22px; min-height:48px; padding:11px 24px; font-size:17px; }
   .catalog-panel { display:block; min-height:0; padding:8px 10px calc(85px + env(safe-area-inset-bottom)); }
   .bound-book, .static-ocean .bound-book { position:relative; inset:auto; width:100%; height:auto; aspect-ratio:auto; transform:none; transform-style:flat; perspective:none; }
   .catalog-layout, #song-list { display:block; position:relative; inset:auto; width:100%; max-width:560px;
@@ -74,12 +73,21 @@
   .mobile-songbook #result-count { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
   .mobile-song-rows { position:relative; isolation:isolate; flex:none; }
   .mobile-song-rows .folio-rows { position:relative; z-index:1; display:flex; flex-direction:column; min-height:0; overflow:visible; font-size:16px; }
-  .mobile-watermark { position:absolute; z-index:0; left:50%; top:50%; width:90%; max-width:340px; height:min(100%,540px);
+  .mobile-watermark { position:absolute; z-index:0; inset:0 -18px; width:auto; max-width:none; height:100%; overflow:clip;
     display:flex; flex-direction:column; justify-content:center; align-items:center;
-    transform:translate(-50%,-50%); margin:0; pointer-events:none; opacity:.16; }
-  .mobile-watermark img { display:block; width:100%; height:calc(100% - 48px); min-height:0; object-fit:contain; }
-  .mobile-watermark figcaption { color:#215268; text-align:center; font:35px/1.2 var(--hand); margin-top:6px; }
-  .mobile-watermark em { font:1.18em var(--latin); }
+    margin:0; pointer-events:none; }
+  /* Crop the transparent margins in layout only. The delivered source keeps
+     the complete original canvas, pose and facial details. */
+  .mobile-watermark { opacity:.40; mix-blend-mode:multiply; }
+  .mobile-original-portrait { position:relative; flex:none; height:calc(100% - 82px); width:auto; aspect-ratio:8663/8200; overflow:hidden;
+    mask-image:linear-gradient(#000 65%,#000b 79%,transparent 99%);
+    -webkit-mask-image:linear-gradient(#000 65%,#000b 79%,transparent 99%); }
+  .mobile-original-portrait img { position:absolute; display:block; width:177.3058%; max-width:none;
+    height:auto; left:-40.9789%; top:-5.3659%; }
+  .mobile-watermark-name { flex:none; display:flex; align-items:baseline; justify-content:center; gap:14px;
+    margin:-26px 0 0; padding:0; height:70px; color:#34545b; white-space:nowrap;
+    font:46px/1.2 var(--hand); }
+  .mobile-watermark-name em { font:1.3em/1 var(--latin); }
   .mobile-songbook .song-row { grid-template-columns:24px minmax(0,1fr) 44px 44px; gap:4px;
     min-height:66px; padding:9px 0; opacity:1; transform:none; background:none; border-bottom:1px solid #6a796b33; }
   .mobile-songbook .song-number { font-size:15px; color:#516f68; }

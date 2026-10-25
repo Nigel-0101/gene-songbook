@@ -4,7 +4,10 @@ const root=document.documentElement,desktop=matchMedia('(min-width:801px)'),redu
 const intro=document.getElementById('profile-panel'),catalog=document.getElementById('catalog'),toggle=document.getElementById('motion-toggle');
 const clamp=x=>Math.max(0,Math.min(1,x)),smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t);};
 let p=0,queued=false,manualStatic=null,arrivalStart=null,arrivalDone=false,arrivalFrame=0,wasDesktop=desktop.matches,hiddenAt=0,progressTime=0,snapProgress=false,hintArrival=null;
-const isStatic=()=>manualStatic??reduced.matches,travel=()=>isStatic()?innerHeight:Math.max(4200,innerHeight*5.2),set=(n,v)=>root.style.setProperty('--'+n,v);
+const renderedValues=new Map();
+const isStatic=()=>manualStatic??reduced.matches,travel=()=>isStatic()?innerHeight:Math.max(4200,innerHeight*5.2),set=(n,v)=>{if(renderedValues.get(n)===v)return;renderedValues.set(n,v);root.style.setProperty('--'+n,v);};
+const sceneLayers=['.env-garden','.env-cove','.env-library','.coral-wipe','.passage-bridge','.launch-atmosphere'].map(s=>document.querySelector(s));
+function showSceneLayers(values){sceneLayers.forEach((element,i)=>{if(!element)return;const active=String(!desktop.matches||values[i]>.00001);if(element.dataset.renderActive!==active)element.dataset.renderActive=active;});}
 function paint(){
  queued=false;
  const still=isStatic(),now=performance.now(),target=desktop.matches?clamp(scrollY/travel()):clamp((scrollY+100)/Math.max(1,catalog.offsetTop));
@@ -42,6 +45,7 @@ function paint(){
  set('book-hint-visible',hint>.001?'visible':'hidden');
  set('reading-focus',Math.max(profile*paper*.6,book*smooth(.83,.965,p)));set('catalog-opacity',book);set('catalog-scale',1);set('book-flight',flight);set('book-open',open);set('book-dock',dock);set('book-pages',pages);set('bookmark',tab);set('cover-alpha',1);set('book-hint',hint);
  const grow=still?0:smooth(.603,.66,p),retreat=still?0:smooth(.69,.75,p);const wipe=still?0:smooth(.603,.62,p)*(1-smooth(.73,.75,p));set('wipe-opacity',wipe);set('coral-grow',grow*(1-retreat));set('coral-cover',still?0:smooth(.64,.66,p)*(1-smooth(.69,.72,p)));set('wipe-x',0);
+ showSceneLayers([garden,cove,library,wipe,still?0:smooth(.065,.09,p)*(1-smooth(.205,.235,p)),arrivalDone?0:1]);
  document.body.dataset.environment=garden?'garden':library?'library':'cove';document.body.classList.add('light-water');
  document.querySelector('.masthead').inert=desktop.matches&&((!arrivalDone&&elapsed<6.2)||(!still&&p>.11&&p<.205));document.querySelector('.journey-nav').inert=desktop.matches&&((!arrivalDone&&elapsed<6.2)||(!still&&p>.11&&p<.205));
  intro.inert=desktop.matches&&(profile<.98||text<.98);catalog.inert=desktop.matches&&(pages<.995||book<.98);

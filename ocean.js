@@ -18,7 +18,7 @@
   const textures={},bubbles=[],burstHistory=[];
   const fishArt=new Image();fishArt.src='art/v8/fish-small.webp';
   const waterArt=new Image();let fishSizes=[];
-  let creatureTime=0, positions={},fallbackArt=null,heroState=null,heroFallback=null;
+  let creatureTime=0, positions={},fallbackArt=null,heroState=null,heroFallback=null,creaturesActive=false;
   let nextBurst=1.8,lastBurstX=-1;
   let width=0,height=0,dpr=1,p=0,staticMode=false,mobile=true,raf=0,last=0,clock=0,rendered=0,fishVisible=0,gl=null,program=null,texture=null,ready=false,contextLost=false;
   let uniforms={},elementCount=0;
@@ -120,6 +120,7 @@
     }ctx.globalAlpha=1;
   }
   function drawJellies(time){
+    if(!creaturesActive)return;
     if(!gl||contextLost){drawFallback(time);return;}
     if(!ready)return;
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -218,7 +219,23 @@
   // Diagnostic state is read-only; it lets local QA distinguish mesh motion from a sliding image.
   window.geneOcean={
     inspectCover(){drawJellies(clock);if(!gl||contextLost)return null;const bytes=new Uint8Array(4),samples=[];for(let y=0;y<=8;y++)for(let x=0;x<=12;x++){gl.readPixels(Math.min(jellyCanvas.width-1,Math.floor(x/12*(jellyCanvas.width-1))),Math.min(jellyCanvas.height-1,Math.floor(y/8*(jellyCanvas.height-1))),1,1,gl.RGBA,gl.UNSIGNED_BYTE,bytes);samples.push(bytes[3]);}return {minimumAlpha:Math.min(...samples),opaque:samples.filter(a=>a>=254).length,total:samples.length};},
-    update(progress,reduced,isMobile){p=progress;staticMode=reduced;const wasMobile=mobile;mobile=isMobile;if(!mobile&&wasMobile){resize();if(!staticMode)initJellies();}else if(!mobile&&!staticMode&&!gl)initJellies();if(mobile||staticMode){cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,width,height);if(heroFallback)heroFallback.clearRect(0,0,jellyCanvas.width,jellyCanvas.height);if(gl&&!contextLost)gl.clear(gl.COLOR_BUFFER_BIT);}else wake();},
+    update(progress,reduced,isMobile){
+      p=progress;staticMode=reduced;const wasMobile=mobile;mobile=isMobile;
+      if(!mobile&&wasMobile){resize();if(!staticMode)initJellies();}
+      else if(!mobile&&!staticMode&&!gl)initJellies();
+      const nextCreatures=!mobile&&!staticMode&&p>.075&&p<.26;
+      if(nextCreatures!==creaturesActive){
+        creaturesActive=nextCreatures;
+        if(creaturesActive){if(!gl)initJellies();}
+        else{
+          if(heroFallback)heroFallback.clearRect(0,0,jellyCanvas.width,jellyCanvas.height);
+          if(gl&&!contextLost)gl.clear(gl.COLOR_BUFFER_BIT);
+        }
+      }
+      jellyCanvas.dataset.renderActive=String(creaturesActive);
+      if(mobile||staticMode){cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,width,height);}
+      else wake();
+    },
     resize,
     diagnostics:()=>({progress:p,positions,hero:heroState,heroReady:!!textures.hero||!!fallbackArt?.hero?.naturalWidth,creatureTime,fishDirection:'right-to-left-current',fishCount:fish.length,visibleFish:fishVisible,fishSizeRange:fishSizes.length?[Math.min(...fishSizes),Math.max(...fishSizes)]:[],jellyTilt:-.58,waterTextureReady:waterArt.complete&&waterArt.naturalWidth>0,meshReady:ready,softwareFallback:!!fallbackArt,turtleReady:!!textures.turtle,reefReady:!!textures.reef,meshVertices:23*49,jellies:jellies.length,time:clock,frames:rendered,running:!!raf,mobile,static:staticMode,bubbles:bubbles.length,bursts:burstHistory.slice(),tailWave:Math.sin(clock*1.4-.9*6.2+.5*3)*.027+Math.sin(clock*.83-.9*10.5+.5*8)*.016})
   };

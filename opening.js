@@ -70,7 +70,7 @@
  const active=()=>!state.mobile&&!state.still&&state.p<.235&&!document.hidden;
  function render(now){raf=0;if(!active())return;if(now-last<32){raf=requestAnimationFrame(render);return;}clock+=Math.min((now-last)/1000,.06);last=now;frames++;drawSchools();drawPassage();raf=requestAnimationFrame(render);}
  function wake(){if(active()&&!raf){last=performance.now();raf=requestAnimationFrame(render);}}
- function update(next){state=next;controls.hidden=state.mobile||state.still||state.p>.04;skip.hidden=state.done;replay.hidden=!review||!state.done;if(!review&&state.done)controls.hidden=true;if(active())wake();else{cancelAnimationFrame(raf);raf=0;fishCtx.clearRect(0,0,width,height);fx.clearRect(0,0,width,height);}}
+ function update(next){const wasActive=active();state=next;controls.hidden=state.mobile||state.still||state.p>.04;skip.hidden=state.done;replay.hidden=!review||!state.done;if(!review&&state.done)controls.hidden=true;if(active())wake();else{cancelAnimationFrame(raf);raf=0;if(wasActive){fishCtx.clearRect(0,0,width,height);fx.clearRect(0,0,width,height);}}}
  skip.addEventListener('click',()=>window.geneJourney?.skipOpening());replay.addEventListener('click',()=>window.geneJourney?.replayOpening());
  addEventListener('resize',resize);document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;}else wake();});
  window.geneOpening={get ready(){return ready;},update,restart(){clock=0;resize();},diagnostics:()=>({ready,frames,running:!!raf,elapsed:state.elapsed,done:state.done,orb,schools:schools.map(({direction,depth,count})=>({direction,depth,count})),fish:painted,layer:'behind-middle-coral',review})};resize();document.fonts.ready.then(resize);

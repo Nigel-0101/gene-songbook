@@ -1,0 +1,19 @@
+/* Keep continuously redrawn canvases out of a filtered full-stage surface.
+   The paper, cover and their existing 3-D choreography remain independent. */
+@media (min-width:801px) {
+ /* The journey is a scroll playhead, not a scrolling surface. Keeping its
+    viewport fixed avoids moving a sticky clip over the masked 3-D leaves. */
+ .stage { position:fixed; inset:0; height:100svh; }
+ .ocean-world { filter:none; }
+ .env-cove,.env-library { filter:blur(calc(var(--reading-focus) * 7px)); }
+ /* Retain the environments while they are in a crossfade. Invisible scenes
+    must not retain animated masks, filters and offscreen texture surfaces. */
+ .environment[data-render-active="false"],
+ .coral-wipe[data-render-active="false"],
+ .passage-bridge[data-render-active="false"],
+ .launch-atmosphere[data-render-active="false"] { visibility:hidden; }
+ /* A transparent WebGL canvas still owns a full-screen compositor surface.
+    Retire it outside the creature passage, including the whole book scene. */
+ #jelly-life[data-render-active="false"] { display:none; }
+ .continuous-passage[data-environment="library"] #marine-life { filter:none; }
+}

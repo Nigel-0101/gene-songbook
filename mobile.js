@@ -22,7 +22,7 @@
       leaf = document.createElement('section');
       leaf.className = 'folio-page mobile-songbook';
       leaf.setAttribute('aria-label', '深海拾音歌单');
-      leaf.innerHTML = '<div class="mobile-song-rows"><figure class="mobile-watermark" aria-hidden="true"><img src="art/mobile/gene-portrait.webp" width="1033" height="1522" alt="" decoding="async"><figcaption>简 <em>Gene</em></figcaption></figure></div><footer class="folio-footer mobile-folio-footer"><nav class="mobile-pagination" aria-label="歌单翻页"></nav><div class="mobile-jump"></div></footer>';
+      leaf.innerHTML = '<div class="mobile-song-rows"><figure class="mobile-watermark" aria-hidden="true"><div class="mobile-original-portrait"><img src="art/v23/gene-heart-original.webp" width="3072" height="1728" alt="" decoding="async"></div><figcaption class="mobile-watermark-name"><span>简</span> <em>Gene</em></figcaption></figure></div><footer class="folio-footer mobile-folio-footer"><nav class="mobile-pagination" aria-label="歌单翻页"></nav><div class="mobile-jump"></div></footer>';
       list.append(leaf);
       const rows = leaf.querySelector('.mobile-song-rows');
       const foot = leaf.querySelector('footer');
